@@ -6,7 +6,7 @@
 public abstract class Player {
 
     private String name;
-    private Roshambo choice;
+    public Roshambo choice;
 
     public abstract Roshambo generateRoshambo();
 
@@ -26,8 +26,8 @@ public abstract class Player {
         return choice;
     }
 
-//    @Override
-//    public String toString() {
-//        return choice + "";
-//    }
+    @Override
+    public String toString() {
+        return choice.toString();
+    }
 }

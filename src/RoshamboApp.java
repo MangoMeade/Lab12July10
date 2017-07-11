@@ -16,20 +16,15 @@ public class RoshamboApp {
         String computerName = "";
         String loop = "y";
 
+        userName = Validator.getString(scnr,"What is your name?\n");
+        computerName = Validator.getString(scnr, "What is your opponent's name?\n");
         while (loop.equalsIgnoreCase("y")) { //loops while player agrees to continue
-            System.out.println("What is your name?");
-            userName = scnr.nextLine();
             System.out.println("Hi " + userName);
-            System.out.println("What is your opponent's name?");
-            computerName = scnr.nextLine();
             HumanPlayer user = new HumanPlayer();
             chooseOpponent(userName, computerName, user);
-
-            System.out.println("Continue? (y/n)");
-            loop = scnr.nextLine();
+            loop = Validator.getString(scnr,"Continue? (y/n)\n");
             while (!(loop.equalsIgnoreCase("y") || loop.equalsIgnoreCase("n"))) {
-                System.out.println("Type Y or N only!");
-                loop = scnr.nextLine();
+                loop = Validator.getString(scnr,"Type Y or N only!\n");
             }
         }
         if (loop.equalsIgnoreCase("n")) {
@@ -45,41 +40,51 @@ public class RoshamboApp {
             dumbComputer.setName(computerName);
             System.out.println("Hi " + dumbComputer.getName());
             System.out.print(userName + ", ");
-            whoWon(user.generateRoshambo().toString(), dumbComputer.generateRoshambo().toString(), userName);
+            whoWon(user.generateRoshambo().toString(), dumbComputer.generateRoshambo().toString(), userName, dumbComputer.getName());
+
         } else if (randomNum == 2) {
             RandomPlayer computer = new RandomPlayer();
             computer.setName(computerName);
             System.out.println("Hi " + computer.getName());
             System.out.print(userName + ", ");
-            whoWon(user.generateRoshambo().toString(), computer.generateRoshambo().toString(), userName);
+            whoWon(user.generateRoshambo().toString(), computer.generateRoshambo().toString(), userName, computer.getName());
+
+
         }
     }
 
     //tihs method checks who won and prints an appropriate response
-    public static void whoWon(String userInput, String computerInput, String userName) {
+    public static String whoWon(String userInput, String computerInput, String userName, String computerName) {
         System.out.println();
         System.out.println(userName + ",");
         String rock = "";
         String paper = "";
         String scissors = "";
+        int userScore = 0;
+        int computerScore = 0;
         if (userInput.equalsIgnoreCase("rock")) {
             if (computerInput.equalsIgnoreCase("rock")) {
                 System.out.println("It's a tie!");
+
             }
             if (computerInput.equalsIgnoreCase("paper")) {
                 System.out.println("You lose!");
+                computerScore += 1;
             }
             if (computerInput.equalsIgnoreCase("scissors")) {
                 System.out.println("You win!");
+                userScore += 1;
             }
 
         }
         if (userInput.equalsIgnoreCase("scissors")) {
             if (computerInput.equalsIgnoreCase("rock")) {
                 System.out.println("You lose!");
+                computerScore += 1;
             }
             if (computerInput.equalsIgnoreCase("paper")) {
                 System.out.println("You won!");
+                userScore += 1;
             }
             if (computerInput.equalsIgnoreCase("scissors")) {
                 System.out.println("It's a tie!");
@@ -89,19 +94,20 @@ public class RoshamboApp {
         if (userInput.equalsIgnoreCase("paper")) {
             if (computerInput.equalsIgnoreCase("rock")) {
                 System.out.println("You win!");
+                userScore += 1;
             }
             if (computerInput.equalsIgnoreCase("paper")) {
                 System.out.println("It's a tie!");
             }
             if (computerInput.equalsIgnoreCase("scissors")) {
                 System.out.println("You lose!");
+                computerScore += 1;
             }
-
         }
-        else {
+        else if(!(userInput.equalsIgnoreCase("rock") || userInput.equalsIgnoreCase("paper") || userInput.equalsIgnoreCase("scissors"))){
             System.out.println("Choose one of the available options");
         }
-
+        return userScore + " " + computerScore;
     }
 
 }

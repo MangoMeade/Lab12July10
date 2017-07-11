@@ -18,12 +18,12 @@ public class RandomPlayer extends Player{
        else if (randomNum == 3) {
             choice = Roshambo.SCISSORS;
         }
-        System.out.println("I choose " + choice);
+        System.out.println("I am " + getName() + " I choose " + choice);
         return choice;
     }
 
-//    @Override
-//    public String toString() {
-//        return choice;
-//    }
+    @Override
+    public String toString() {
+        return choice.toString();
+    }
 }
